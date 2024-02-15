@@ -5,12 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>API</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              skyBlue: '#00d1dc',
+            }
+          }
+        }
+      }
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex space-x-4">
-        <h3 class="text-3xl font-bold">Preparat per riure? &#128514; </h3>
+    <div class="p-6 w-3/4 text-center container mx-auto bg-white rounded-xl shadow-lg flex flex-col space-x-4">
+      <div>
+        <h3 class="text-2xl font-bold p-13">Preparat per riure? &#128514; </h3>
+      </div>
+      <div>
         <p id="joke"></p>
-        <button id="nextJoke" class="bg-sky-500 hover:bg-sky-700 hover:text-white">Següent acudit</button>
+      </div>
+      <div>
+        <button id="nextJoke" class="bg-skyBlue">Següent acudit</button>
+      </div>
     </div>
     <script src="./dist/app.js"></script>
 </body>
