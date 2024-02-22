@@ -1,24 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const jokeElement = document.getElementById("joke");
-  const nextJokeButton = document.getElementById("nextJoke");
-
-  if (jokeElement && nextJokeButton) {
-    nextJokeButton.addEventListener("click", async () => {
-      try {
-        const response = await fetch("https://icanhazdadjoke.com/", {
-          headers: { Accept: "application/json" },
-        });
-        const data = await response.json();
-        jokeElement.textContent = data.joke;
-      } catch (error) {
-        console.error("Error fetching joke:", error);
-      }
-    });
-  } else {
-    console.error("Error: Elements not found.");
-  }
-});
-
 //Score d'acudits
 interface Joke {
   joke: string;
@@ -58,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextJokeButton = document.getElementById("nextJoke");
 
   if (jokeElement && nextJokeButton) {
-    nextJokeButton.addEventListener("click", async () => {
+    // Definir la función para obtener el siguiente chiste
+    const getNextJoke = async () => {
       try {
         const response = await fetch("https://icanhazdadjoke.com/", {
           headers: { Accept: "application/json" },
@@ -71,15 +51,15 @@ document.addEventListener("DOMContentLoaded", () => {
         // Actualizar el score del chiste mostrado anteriormente (si existe)
         if (reportAcudits.length > 0) {
           // Suponiendo que el último chiste registrado es el que se muestra actualmente
-          updateScore(
-            reportAcudits.length -
-              1 /* Aquí debes proporcionar el score adecuado */
-          );
+          updateScore(reportAcudits.length - 1, -1);
         }
       } catch (error) {
         console.error("Error fetching joke:", error);
       }
-    });
+    };
+
+    // Agregar el evento onclick al botón para llamar a la función getNextJoke
+    nextJokeButton.addEventListener("click", getNextJoke);
   } else {
     console.error("Error: Elements not found.");
   }

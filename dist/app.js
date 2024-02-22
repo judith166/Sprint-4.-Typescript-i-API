@@ -8,27 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-document.addEventListener("DOMContentLoaded", () => {
-    const jokeElement = document.getElementById("joke");
-    const nextJokeButton = document.getElementById("nextJoke");
-    if (jokeElement && nextJokeButton) {
-        nextJokeButton.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                const response = yield fetch("https://icanhazdadjoke.com/", {
-                    headers: { Accept: "application/json" },
-                });
-                const data = yield response.json();
-                jokeElement.textContent = data.joke;
-            }
-            catch (error) {
-                console.error("Error fetching joke:", error);
-            }
-        }));
-    }
-    else {
-        console.error("Error: Elements not found.");
-    }
-});
 const reportAcudits = [];
 function recordJoke(joke) {
     const newJoke = {
@@ -55,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const jokeElement = document.getElementById("joke");
     const nextJokeButton = document.getElementById("nextJoke");
     if (jokeElement && nextJokeButton) {
-        nextJokeButton.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+        const getNextJoke = () => __awaiter(void 0, void 0, void 0, function* () {
             try {
                 const response = yield fetch("https://icanhazdadjoke.com/", {
                     headers: { Accept: "application/json" },
@@ -64,14 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 jokeElement.textContent = data.joke;
                 recordJoke(data.joke);
                 if (reportAcudits.length > 0) {
-                    updateScore(reportAcudits.length -
-                        1);
+                    updateScore(reportAcudits.length - 1, -1);
                 }
             }
             catch (error) {
                 console.error("Error fetching joke:", error);
             }
-        }));
+        });
+        nextJokeButton.addEventListener("click", getNextJoke);
     }
     else {
         console.error("Error: Elements not found.");
